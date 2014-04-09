@@ -25,7 +25,7 @@ boundaryField
 {
     #include "include/ABLConditions"
 
-    ground // Was terrain
+    terrain
     {
         type            epsilonWallFunction;
         Cmu             0.09;
@@ -51,12 +51,12 @@ boundaryField
         value           $internalField;
         zGround         $zGround;
     }
-/*
+
     ground
     {
         type            zeroGradient;
     }
-*/
+
     #include "include/sideAndTopPatches"
 }
 

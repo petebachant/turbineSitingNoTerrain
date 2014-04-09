@@ -39,16 +39,15 @@ geometry
     windTurbine2
     {
         type searchableBox;
-        min (581740 4785658 1061);
-        max (581771 4785671 1071);
+        min (581740 4785658 1065);
+        max (581771 4785671 1079);
     }
-/*
+
     terrain.stl
     {
         type triSurfaceMesh;
         name terrain;
     }
-*/
 };
 
 
@@ -119,13 +118,13 @@ castellatedMeshControls
 
     refinementSurfaces
     {
-/*
         terrain
         {
             // Surface-wise min and max refinement level
             level (2 2);
-            // Optional region-wise level specification
 
+            // Optional region-wise level specification
+/*
             regions
             {
                 windTurbine
@@ -133,7 +132,7 @@ castellatedMeshControls
                     level (3 3);
                 }
             }
-
+*/
             //- Optional angle to detect small-large cell situation
             //  perpendicular to the surface. Is the angle of face w.r.t.
             //  the local surface normal. Use on flat(ish) surfaces only.
@@ -148,7 +147,6 @@ castellatedMeshControls
             //cellZone sphere;
             //cellZoneInside inside;  //outside/insidePoint
         }
-*/
     }
 
     resolveFeatureAngle 30;
@@ -173,15 +171,19 @@ castellatedMeshControls
         windTurbine1
         {
             mode inside;
-            levels ((4 4));
+            levels ((6 6));
         }
 
         windTurbine2
         {
             mode inside;
-            levels ((4 4));
+            levels ((6 6));
         }
-
+        //sphere.stl
+        //{
+        //    mode distance;
+        //    levels ((1.0 5) (2.0 3));
+        //}
     }
 
 

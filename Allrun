@@ -24,6 +24,4 @@ runParallel `getApplication` 4
 runApplication reconstructParMesh -constant
 runApplication reconstructPar
 
-rm -rf processor*
-
 # ----------------------------------------------------------------- end-of-file

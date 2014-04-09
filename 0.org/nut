@@ -44,7 +44,7 @@ boundaryField
 
     ground
     {
-        type            nutkWallFunction;
+        type            calculated;
         value           uniform 0;
     }
 
