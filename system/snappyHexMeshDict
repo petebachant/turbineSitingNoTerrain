@@ -42,12 +42,13 @@ geometry
         min (581740 4785658 1065);
         max (581771 4785671 1079);
     }
-
+/*
     terrain.stl
     {
         type triSurfaceMesh;
         name terrain;
     }
+*/
 };
 
 
@@ -118,13 +119,13 @@ castellatedMeshControls
 
     refinementSurfaces
     {
-        terrain
+/*        terrain
         {
             // Surface-wise min and max refinement level
             level (2 2);
 
             // Optional region-wise level specification
-/*
+
             regions
             {
                 windTurbine
@@ -132,7 +133,7 @@ castellatedMeshControls
                     level (3 3);
                 }
             }
-*/
+
             //- Optional angle to detect small-large cell situation
             //  perpendicular to the surface. Is the angle of face w.r.t.
             //  the local surface normal. Use on flat(ish) surfaces only.
@@ -147,6 +148,7 @@ castellatedMeshControls
             //cellZone sphere;
             //cellZoneInside inside;  //outside/insidePoint
         }
+*/
     }
 
     resolveFeatureAngle 30;
@@ -202,6 +204,13 @@ castellatedMeshControls
     // are only on the boundary of corresponding cellZones or also allow
     // free-standing zone faces. Not used if there are no faceZones.
     allowFreeStandingZoneFaces true;
+
+    // Optional: do not remove cells likely to give snapping problems
+    handleSnapProblems false;
+
+    // Optional: switch off topological test for cells to-be-squashed
+    //           and use geometric test instead
+    //useTopologicalSnapDetection false;
 }
 
 
@@ -209,21 +218,41 @@ castellatedMeshControls
 // Settings for the snapping.
 snapControls
 {
-    //- Number of patch smoothing iterations before finding correspondence
-    //  to surface
+    // Number of patch smoothing iterations before finding correspondence
+    // to surface
     nSmoothPatch 3;
 
-    //- Relative distance for points to be attracted by surface feature point
-    //  or edge. True distance is this factor times local
-    //  maximum edge length.
-    tolerance 4.0;
+    // Maximum relative distance for points to be attracted by surface.
+    // True distance is this factor times local maximum edge length.
+    // Note: changed(corrected) w.r.t 17x! (17x used 2* tolerance)
+    tolerance 2.0;
 
-    //- Number of mesh displacement relaxation iterations.
+    // Number of mesh displacement relaxation iterations.
     nSolveIter 30;
 
-    //- Maximum number of snapping relaxation iterations. Should stop
-    //  before upon reaching a correct mesh.
+    // Maximum number of snapping relaxation iterations. Should stop
+    // before upon reaching a correct mesh.
     nRelaxIter 5;
+
+    // Feature snapping
+
+        // Number of feature edge snapping iterations.
+        // Leave out altogether to disable.
+        nFeatureSnapIter 10;
+
+        // Detect (geometric only) features by sampling the surface
+        // (default=false).
+        implicitFeatureSnap true;
+
+        // Use castellatedMeshControls::features (default = true)
+        explicitFeatureSnap true;
+
+        // Detect features between multiple surfaces
+        // (only for explicitFeatureSnap, default = false)
+        multiRegionFeatureSnap false;
+
+    // wip: disable snapping to opposite near surfaces (revert to 22x behaviour)
+    //detectNearSurfacesSnap false;
 }
 
 
